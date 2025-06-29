@@ -45,11 +45,13 @@ target_include_directories(${LibName}
 
 target_link_libraries(${LibName}
     PUBLIC
+    fmt::fmt
+    glm::glm
+    imgui
     libglew_static
     spdlog::spdlog_header_only
     SDL2::SDL2main SDL2::SDL2-static
     )
-
 # Correctly locate SDL2.dll and set up the copy command for Windows
 if (WIN32)
     # Copy the SDL2.dll file to the executable directory after build

@@ -4,12 +4,42 @@
 include(FetchContent)
 
 
+FetchContent_Declare(fmt
+    GIT_REPOSITORY https://github.com/fmtlib/fmt.git
+    GIT_TAG 11.0.1
+    GIT_SHALLOW ON
+    GIT_PROGRESS ON
+    FIND_PACKAGE_ARGS 11.0.1)
+FetchContent_MakeAvailable(fmt)
+
+FetchContent_Declare(glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 1.0.1
+    GIT_SHALLOW ON
+    GIT_PROGRESS ON)
+FetchContent_MakeAvailable(glm)
+
+FetchContent_Declare(gtest
+    GIT_REPOSITORY https://github.com/google/googletest
+    GIT_TAG v1.15.0
+    GIT_SHALLOW ON
+    GIT_PROGRESS ON
+    FIND_PACKAGE_ARGS 1.15.0)
+FetchContent_MakeAvailable(gtest)
+
 FetchContent_Declare(imgui
     GIT_REPOSITORY https://github.com/ocornut/imgui.git
     GIT_TAG v1.90.9
     GIT_SHALLOW ON
     GIT_PROGRESS ON
     FIND_PACKAGE_ARGS 1.90.9)
+FetchContent_MakeAvailable(imgui)
+add_library(imgui
+    ${imgui_SOURCE_DIR}/imgui.cpp
+    ${imgui_SOURCE_DIR}/imgui_draw.cpp
+    ${imgui_SOURCE_DIR}/imgui_tables.cpp
+    ${imgui_SOURCE_DIR}/imgui_widgets.cpp)
+target_include_directories(imgui PUBLIC ${imgui_SOURCE_DIR})
 
 
 set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
