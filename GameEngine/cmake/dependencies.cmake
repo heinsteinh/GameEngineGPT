@@ -93,3 +93,21 @@ FetchContent_Declare(
   GIT_REPOSITORY https://github.com/Perlmint/glew-cmake.git
   GIT_TAG glew-cmake-2.2.0)
 FetchContent_MakeAvailable(glew)
+
+set(GLFW_BUILD_EXAMPLES
+    OFF
+    CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS
+    OFF
+    CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS
+    OFF
+    CACHE BOOL "" FORCE)
+FetchContent_Declare(
+  glfw
+  GIT_REPOSITORY https://github.com/glfw/glfw.git
+  GIT_TAG 3.4
+  GIT_SHALLOW ON
+  GIT_PROGRESS ON
+  FIND_PACKAGE_ARGS 3.4)
+FetchContent_MakeAvailable(glfw)

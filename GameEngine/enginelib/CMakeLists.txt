@@ -48,8 +48,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 # Include directories
-target_include_directories(${LibName} PUBLIC ${glew_SOURCE_DIR}/include
-                                             ${sdl2_SOURCE_DIR}/include)
+target_include_directories(
+  ${LibName} PUBLIC ${glew_SOURCE_DIR}/include ${glfw_SOURCE_DIR}/include
+                    ${sdl2_SOURCE_DIR}/include)
 
 target_link_libraries(
   ${LibName}
@@ -72,4 +73,5 @@ endif()
 
 message(STATUS "sdl2: ${sdl2_SOURCE_DIR}")
 message(STATUS "glew: ${glew_SOURCE_DIR}")
+message(STATUS "glfw: ${glfw_SOURCE_DIR}")
 message(STATUS "spdlog: ${spdlog_SOURCE_DIR}")
