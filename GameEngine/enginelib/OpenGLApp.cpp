@@ -1,7 +1,9 @@
 #include "OpenGLApp.h"
 
 OpenGLApp::OpenGLApp(int width, int height, const char* title)
-    : window(nullptr), quit(false), mainContext(nullptr)
+    : window(nullptr)
+    , quit(false)
+    , mainContext(nullptr)
 {
     // Set SDL_GL attributes before creating the window
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -17,25 +19,29 @@ OpenGLApp::OpenGLApp(int width, int height, const char* title)
                               width, height,
                               SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
 
-    if (!window) {
+    if(!window)
+    {
         std::cerr << "Failed to create SDL window: " << SDL_GetError() << std::endl;
     }
 }
 
 bool OpenGLApp::initialize()
 {
-    if (!window) return false;
+    if(!window)
+        return false;
 
     mainContext = SDL_GL_CreateContext(window);
-    if (!mainContext) {
+    if(!mainContext)
+    {
         std::cerr << "Failed to create OpenGL context: " << SDL_GetError() << std::endl;
         return false;
     }
 
     // Initialize GLEW
-    glewExperimental = GL_TRUE;
+    glewExperimental  = GL_TRUE;
     GLenum glewStatus = glewInit();
-    if (glewStatus != GLEW_OK) {
+    if(glewStatus != GLEW_OK)
+    {
         std::cerr << "GLEW Initialization failed: " << glewGetErrorString(glewStatus) << std::endl;
         return false;
     }
@@ -46,7 +52,8 @@ bool OpenGLApp::initialize()
 
 void OpenGLApp::mainLoop()
 {
-    while (!quit) {
+    while(!quit)
+    {
         handleEvents();
         render();
         SDL_GL_SwapWindow(window);
@@ -55,11 +62,15 @@ void OpenGLApp::mainLoop()
 
 void OpenGLApp::handleEvents()
 {
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
+    while(SDL_PollEvent(&event))
+    {
+        if(event.type == SDL_QUIT)
+        {
             quit = true;
-        } else if (event.type == SDL_KEYDOWN) {
-            if (event.key.keysym.sym == SDLK_ESCAPE)
+        }
+        else if(event.type == SDL_KEYDOWN)
+        {
+            if(event.key.keysym.sym == SDLK_ESCAPE)
                 quit = true;
         }
     }
@@ -75,10 +86,12 @@ void OpenGLApp::render()
 
 void OpenGLApp::cleanup()
 {
-    if (mainContext) {
+    if(mainContext)
+    {
         SDL_GL_DeleteContext(mainContext);
     }
-    if (window) {
+    if(window)
+    {
         SDL_DestroyWindow(window);
     }
     SDL_Quit();
