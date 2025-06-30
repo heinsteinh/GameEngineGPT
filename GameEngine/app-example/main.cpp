@@ -1,4 +1,4 @@
-#include "OpenGLApp.h"
+#include "Utils/OpenGLApp.h"
 
 #include <spdlog/spdlog.h>
 

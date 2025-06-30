@@ -82,6 +82,8 @@ FetchContent_Declare(
   EXCLUDE_FROM_ALL SYSTEM)
 FetchContent_MakeAvailable(SDL2)
 
+find_library(SDL2_LIBRARY SDL2)
+
 # ############################# glew
 # ##############################################################################
 set(glew-cmake_BUILD_SHARED
