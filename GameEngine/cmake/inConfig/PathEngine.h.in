@@ -1,0 +1,17 @@
+#pragma once
+#ifndef __PATH_H__
+#define __PATH_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the @ variable type
+const char* path = "@CMAKE_SOURCE_DIR@";
+const char* pathResource = "@CMAKE_SOURCE_DIR@/Resources";
+const char* pathGameExampleResource = "@CMAKE_SOURCE_DIR@/GameExample/Resources";
+
+
+const char* pathRoot = "@CMAKE_SOURCE_DIR@";
+const char* pathAsset = "@CMAKE_SOURCE_DIR@/Assets";
+const char* pathExampleAsset = "@CMAKE_SOURCE_DIR@/EngineSandbox/Assets";
+const char* pathCmdAsset = "@CMAKE_SOURCE_DIR@/SandboxCommand/Assets";
+
+#endif

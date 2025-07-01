@@ -2,6 +2,10 @@ set(LibName "EngineLib")
 
 project(${LibName} C CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS ON)
+
 include_directories(.)
 include_directories(${INCLUDE_OUTPUT_PATH})
 include_directories(${EngineLib_DIR})
@@ -25,6 +29,15 @@ file(
 
 file(
   GLOB_RECURSE
+  Engine_Renderer_Src
+  "${EngineLib_DIR}/Renderer/*.txt"
+  "${EngineLib_DIR}/Renderer/*.h"
+  "${EngineLib_DIR}/Renderer/*.inl"
+  "${EngineLib_DIR}/Renderer/*.hpp"
+  "${EngineLib_DIR}/Renderer/*.cpp")
+
+file(
+  GLOB_RECURSE
   Engine_Utils_Src
   "${EngineLib_DIR}/Utils/*.txt"
   "${EngineLib_DIR}/Utils/*.h"
@@ -32,7 +45,20 @@ file(
   "${EngineLib_DIR}/Utils/*.hpp"
   "${EngineLib_DIR}/Utils/*.cpp")
 
-add_library(${LibName} ${Engine_Core_Src} ${Engine_Utils_Src})
+# Collect sources into the variable Engine_Framework_CmdGraphic_Common_Src
+file(
+  GLOB_RECURSE
+  EngineCore_SRC
+  "${EngineLib_DIR}/*.txt"
+  "${EngineLib_DIR}/*.*"
+  "${EngineLib_DIR}/*.h"
+  "${EngineLib_DIR}/*.inl"
+  "${EngineLib_DIR}/*.hpp"
+  "${EngineLib_DIR}/*.c??")
+
+add_library(
+  ${LibName} ${EngineCore_SRC}) # ${Engine_Core_Src} ${Engine_Renderer_Src}
+                                # ${Engine_Utils_Src})
 
 target_compile_definitions(
   ${LibName} PUBLIC GLM_ENABLE_EXPERIMENTAL # GLFW_INCLUDE_VULKAN

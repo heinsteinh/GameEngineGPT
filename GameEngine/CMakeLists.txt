@@ -52,6 +52,23 @@ else()
   set(INCLUDE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/Host/include)
 endif()
 
+# Call configure files on ver.h.in to set the version. Uses the standard
+# ${VARIABLE} syntax in the file
+configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/VersionEngine.h.in"
+               ${INCLUDE_OUTPUT_PATH}/VersionEngine.h)
+
+# configure the path.h.in file. This file can only use the @VARIABLE@ syntax in
+# the file
+configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/PathEngine.h.in"
+               ${INCLUDE_OUTPUT_PATH}/PathEngine.h @ONLY)
+
+# configuration
+configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/config.h.in"
+               ${INCLUDE_OUTPUT_PATH}/Config.h)
+
+message(STATUS "C Compiler: ${CMAKE_C_COMPILER_ID}")
+message(STATUS "CXX Compiler: ${CMAKE_CXX_COMPILER_ID}")
+
 # Download dependencies through CMake
 include(cmake/dependencies.cmake)
 

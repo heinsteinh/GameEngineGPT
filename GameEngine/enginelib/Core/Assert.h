@@ -1,7 +1,10 @@
-#pragma once
-#include <cstdlib>
 
-// #include "Config.h"
+#ifndef ASSERT_H
+#define ASSERT_H
+
+#include "Config.h"
+
+#include <cstdlib>
 
 //
 // CURRENT FUNCTION NAME
@@ -76,4 +79,6 @@ namespace Assert
 #else // GCC, Clang
 #define UNREACHABLE __builtin_unreachable()
 #endif
+#endif
+
 #endif

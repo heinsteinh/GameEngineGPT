@@ -5,7 +5,8 @@
 
 // Adapted from Branimir Karadžić's platform.h (https://github.com/bkaradzic/bx)
 
-#pragma once
+#ifndef PLATFORMDETECTION_H
+#define PLATFORMDETECTION_H
 
 #define FTS_COMPILER_CLANG 0
 #define FTS_COMPILER_GCC   0
@@ -148,4 +149,6 @@
 #define FTS_ARCH_NAME "32-bit"
 #elif FTS_ARCH_64BIT
 #define FTS_ARCH_NAME "64-bit"
+#endif
+
 #endif

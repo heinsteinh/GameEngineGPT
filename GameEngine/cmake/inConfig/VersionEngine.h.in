@@ -1,0 +1,30 @@
+#pragma once
+#ifndef __VER_H__
+#define __VER_H__
+
+// version variable that will be substituted by cmake
+// This shows an example using the $ variable type
+//const char* ver = "${cf_BUILD_VERSION}";
+//const char* strVersion = "${cf_BUILD_VERSION}";
+
+
+#define GAME_ENGINE_VERSION_MAJOR        "@GAMEENGINE_VERSION_MAJOR@"
+#define GAME_ENGINE_VERSION_MINOR        "@GAMEENGINE_VERSION_MINOR@"
+#define GAME_ENGINE_VERSION_PATCH        "@GAMEENGINE_VERSION_PATCH@"
+#define GAME_ENGINE_VERSION_EXTRA        "@GAMEENGINE_VERSION_EXTRA@"
+#define GAME_ENGINE_VERSION              "@cf_BUILD_VERSION@"
+
+#define GAME_ENGINE_DATE                 "@GAMEENGINE_DATE@"
+#define GAME_ENGINE_HOST                 "@GAMEENGINE_HOST@"
+#define GAME_ENGINE_PACKAGER             "@GAMEENGINE_PACKAGER@"
+#define GAME_ENGINE_OS                   "@GAMEENGINE_OS@"
+#define GAME_ENGINE_SHORT_LICENSE        "@GAMEENGINE_SHORT_LICENSE@"
+
+
+#define GAME_ENGINE_ROOT_RESOURCE        "@CMAKE_SOURCE_DIR@/Assets"
+#define GAME_EXAMPLE_RESOURCE            "@CMAKE_SOURCE_DIR@/Sandbox/Assets";
+#define GAME_CMD_RESOURCE                "@CMAKE_SOURCE_DIR@/SandboxCommand/Assets";
+
+#define GAME_EXECUTABLE_OUTPUT_PATH      "@EXECUTABLE_OUTPUT_PATH@"
+
+#endif

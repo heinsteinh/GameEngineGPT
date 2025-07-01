@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COREBASE_H
+#define COREBASE_H
 
 #include <Core/Macro.h>
 #include <memory>
@@ -20,3 +21,5 @@ constexpr Scope<T> CreateScope(Args&&... args)
 {
     return std::make_unique<T>(std::forward<Args>(args)...);
 }
+
+#endif

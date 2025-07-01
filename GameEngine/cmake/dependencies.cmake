@@ -19,6 +19,13 @@ FetchContent_Declare(
   GIT_TAG 1.0.1
   GIT_SHALLOW ON
   GIT_PROGRESS ON)
+
+set(GLM_BUILD_LIBRARY
+    ON
+    CACHE BOOL "" FORCE)
+set(GLM_ENABLE_CXX_20
+    ON
+    CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(glm)
 
 FetchContent_Declare(

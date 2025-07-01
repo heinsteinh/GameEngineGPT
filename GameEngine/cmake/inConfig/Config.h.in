@@ -1,0 +1,18 @@
+#pragma once
+
+/** @def
+ * ENABLE_GTEST
+ */
+#cmakedefine ENABLE_GTEST
+
+/** @def
+ * ENABLE_GMOCK
+ */
+#cmakedefine ENABLE_GMOCK
+
+
+// Used to define the configuration of the engine
+#cmakedefine  FTS_DEBUG
+#cmakedefine  FTS_IMGUI
+#cmakedefine  NDEBUG
+#cmakedefine  _DEBUG
