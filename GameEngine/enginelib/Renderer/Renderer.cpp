@@ -4,20 +4,17 @@
 namespace fts
 {
 
-    /*
     struct SceneData
     {
         glm::mat4 ViewProjectionMatrix;
         Ref<Shader> FullQuadShader;
         Ref<VertexArray> FullQuadVao;
 
-
-        DrawBuffer mBufferCommand;
-        std::unique_ptr<RenderThread> mRenderThread;
-        std::stack<Rectf> mVpStack;
-        std::stack<Camera> mCamStack;
+        // DrawBuffer mBufferCommand;
+        // std::unique_ptr<RenderThread> mRenderThread;
+        // std::stack<Rectf> mVpStack;
+        // std::stack<Camera> mCamStack;
     };
-    */
 
     Scope<SceneData> Renderer::s_SceneData = CreateScope<SceneData>();
 
@@ -53,21 +50,23 @@ namespace fts
                 }
              )"};
 
-            s_SceneData->FullQuadShader = fts::RenderCommand::CreateShaderCompile("FullQuadShader", FULLQUAD_EFFECT_VS, FULLQUAD_EFFECT_FS);
-            s_SceneData->FullQuadVao    = Renderer::MakeFullScreenQuad();
+            // s_SceneData->FullQuadShader = fts::RenderCommand::CreateShaderCompile("FullQuadShader", FULLQUAD_EFFECT_VS, FULLQUAD_EFFECT_FS);
+            // s_SceneData->FullQuadVao    = Renderer::MakeFullScreenQuad();
         }
     }
 
     void Renderer::Shutdown()
     {
-        // Renderer2D::Shutdown();
-        // Renderer3D::Shutdown();
+        /*
+         Renderer2D::Shutdown();
+         Renderer3D::Shutdown();
 
         s_SceneData->FullQuadShader.reset();
         s_SceneData->FullQuadShader = nullptr;
 
         s_SceneData->FullQuadVao.reset();
         s_SceneData->FullQuadVao = nullptr;
+        */
     }
 
     /*

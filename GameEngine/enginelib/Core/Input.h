@@ -5,7 +5,7 @@
 #include <Core/MouseCodes.h>
 #include <glm/vec2.hpp>
 
-namespace Hazel
+namespace fts
 {
 
     class Input
@@ -18,6 +18,6 @@ namespace Hazel
         static float GetMouseX();
         static float GetMouseY();
     };
-} // namespace Hazel
+} // namespace fts
 
 #endif // INPUT_H

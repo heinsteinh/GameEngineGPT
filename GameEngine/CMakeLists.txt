@@ -77,7 +77,8 @@ set(EngineLib_DIR ${PROJECT_SOURCE_DIR}/enginelib)
 add_subdirectory(enginelib)
 
 if(FTS_BUILD_EXAMPLE)
-  add_subdirectory(app-example)
+  # add_subdirectory(app-example)
+  add_subdirectory(sandbox)
 endif()
 
 if(FTS_BUILD_TESTS)

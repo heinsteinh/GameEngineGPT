@@ -51,8 +51,8 @@ namespace fts
     class Application
     {
     public:
-        Application(const std::string& name         = "SGL App",
-                    ApplicationCommandLineArgs args = ApplicationCommandLineArgs());
+        Application(
+            ApplicationCommandLineArgs args = ApplicationCommandLineArgs(), const std::string& name = "SGL App");
 
         Application() = default;
 
@@ -221,34 +221,37 @@ namespace fts
 
     private:
         static Application* s_Instance;
+
         Ini mSettings;
 
         void InitSettings();
         void InitEvents();
-
-        //// Create a FileWatcher instance that will check the current folder for changes every 5 seconds
-        // sgl::FileWatcher mFileWatcher;
     };
+
+    // To be defined in CLIENT
+    // fts::Application* CreateApplication(ApplicationCommandLineArgs args);
+
+} // namespace fts
+// Application* CreateApplication();
+//  void RegisterApplication(ApplicationCommandLineArgs args);
 
 //    // To be defined in CLIENT
 // #define RegisterApplication(x) fts::Application* fts::Application::CreateApplicaton()\
-       //{\
-       //	return new x();\
-       //}
+//{\
+//	return new x();\
+//}
 
-//// To be defined in CLIENT
-#define RegisterApplication(x)                                                                 \
-    fts::Application* fts::Application::CreateApplicaton(fts::ApplicationCommandLineArgs args) \
-    {                                                                                          \
-        return new x(args);                                                                    \
+// To be defined in CLIENT
+#define RegisterApplication(x)                                                                  \
+    fts::Application* fts::Application::CreateApplication(fts::ApplicationCommandLineArgs args) \
+    {                                                                                           \
+        return new x(args);                                                                     \
     }
 
-    // To be defined in CLIENT
-     // #define RegisterApplication(x) fts::Application* fts::Application::CreateApplication(const fts::mem::HeapArea& heap,const fts::mem::HeapArea& heapTemp, fts::ApplicationCommandLineArgs args)\
-    {\
-            return new x(heap, heapTemp, args);\
-    }
-
-} // namespace fts
+// To be defined in CLIENT
+ // #define RegisterApplication(x) fts::Application* fts::Application::CreateApplication(const fts::mem::HeapArea& heap,const fts::mem::HeapArea& heapTemp, fts::ApplicationCommandLineArgs args)\
+{\
+        return new x(heap, heapTemp, args);\
+}
 
 #endif

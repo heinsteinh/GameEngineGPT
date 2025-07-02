@@ -20,11 +20,10 @@ namespace fts
 
     Application* Application::s_Instance = nullptr;
 
-    Application::Application(const std::string& title, ApplicationCommandLineArgs args)
+    Application::Application(ApplicationCommandLineArgs args, const std::string& title)
         : m_CommandLineArgs(args)
-    //  , mEventManager(true)
     {
-        // HZ_PROFILE_FUNCTION();
+        HZ_PROFILE_FUNCTION();
 
         mAppSpecification.WorkingDirectory = GetAppDirectory().string();
         mAppSpecification.CommandLineArgs  = m_CommandLineArgs;
@@ -39,7 +38,6 @@ namespace fts
         FTS_CORE_INFO("Debug info is output to: {}", debug_path);
 
         // fts::Random::Init();
-
         // job::JobSystem::Initialize();
         // mThreadPool = CreateRef<job::ThreadPool>(job::ThreadPool::MAX_NUM_THREADS - 2);
 
@@ -182,7 +180,7 @@ namespace fts
         }
         else
         {
-            FTS_CORE_WARN("No such ini file: {}. The application will create a new one.", ini_path);
+            FTS_CORE_WARN("No such ini file: {}. The application will create a new one.", ini_path.string());
         }
     }
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Core/IWindow.h>
+#include <Events/EventDef.h>
 #include <SDL.h>
 #include <string>
 

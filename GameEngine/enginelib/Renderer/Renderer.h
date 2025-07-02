@@ -1,8 +1,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#pragma once
-
 #include <Camera/Camera.h>
 #include <Renderer/RenderCommand.h>
 

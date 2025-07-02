@@ -11,6 +11,6 @@
 #include <Core/Layer.h>
 #include <Core/Log.h>
 #include <Core/MouseCodes.h>
-#include <Core/Timestep.h>
+#include <Core/TimeStep.h>
 
 #endif // FTSCORE_H

@@ -251,6 +251,8 @@ using hashed_wstring = basic_hashed_string<wchar_t>;
 //  return hashed_wstring{ str };
 //}
 
+/*
+ *
 namespace std
 {
     template <>
@@ -290,5 +292,7 @@ inline size_t HashCombine(Args... args)
     HashCombine(hash, args...);
     return hash;
 }
+
+*/
 
 #endif // HASHEDSTRING_H
