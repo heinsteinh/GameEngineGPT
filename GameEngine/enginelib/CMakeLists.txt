@@ -27,7 +27,6 @@ file(
   "${EngineLib_DIR}/Core/*.hpp"
   "${EngineLib_DIR}/Core/*.cpp")
 
-
 file(
   GLOB_RECURSE
   Engine_Renderer_Src
