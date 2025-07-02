@@ -1,4 +1,4 @@
-#include <Core/Init.h>
+#include <Core/Ini.h>
 #include <Utils/ExceptionDebug.h>
 #include <Utils/StringUtils.h>
 #include <ftspch.h>

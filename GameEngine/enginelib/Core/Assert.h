@@ -2,8 +2,7 @@
 #ifndef ASSERT_H
 #define ASSERT_H
 
-#include "Config.h"
-
+#include <Config.h>
 #include <cstdlib>
 
 //

@@ -37,7 +37,8 @@ namespace fts::win32
             return mData.Ypos;
         }
         std::pair<int32_t, int32_t> GetWindowPos() const override;
-        // MultiSampleLevel GetMSAA() const  override;;
+        MultiSampleLevel GetMSAA() const override;
+        ;
 
         inline void SetEventCallback(const EventCallbackFn& callback) override
         {
@@ -79,8 +80,8 @@ namespace fts::win32
             std::string Title = "";
             uint32_t Width = 0, Height = 0;
             uint32_t Xpos = 0, Ypos = 0;
-            bool VSync = false;
-            // int MSAA = 4;
+            bool VSync           = false;
+            int MSAA             = 4;
             glm::vec4 clearColor = {0.0f, 0.0f, 0.0f, 1.0f};
             EventCallbackFn EventCallback;
         };

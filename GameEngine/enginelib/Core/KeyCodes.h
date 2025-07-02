@@ -1,6 +1,7 @@
 #ifndef KEYCODES_H
 #define KEYCODES_H
 
+#include <ostream>
 #include <stdint.h>
 
 namespace fts

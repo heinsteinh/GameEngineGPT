@@ -1,7 +1,8 @@
-#pragma once
 
-#include "Core/Base.h"
+#ifndef CORE_LOG_H
+#define CORE_LOG_H
 
+#include <Core/Base.h>
 #include <memory>
 
 #ifndef GLM_ENABLE_EXPERIMENTAL
@@ -100,3 +101,5 @@ inline OStream& operator<<(OStream& os, glm::qua<T, Q> quaternion)
         ::fts::Log::GetClientLogger()->critical(__VA_ARGS__);                                    \
         ::fts::Log::GetClientLogger()->critical("Location: \n{}", ::fts::Log::DumpStackTrace()); \
     }
+
+#endif

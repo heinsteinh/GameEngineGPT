@@ -1,18 +1,14 @@
 #include <API/Windows/Window_windows.h>
+#include <Renderer/GraphicsContext.h>
+#include <Utils/EngineVersion.h>
 #include <ftspch.h>
-
-// #include "Renderer/GraphicsContext.h"
-// #include "Utils/EngineVersion.h"
 
 // #include <stb_image.h>
 // #include <stb_image_write.h>
 
 #include <Core/InputCore.h>
-#include <Utils/IncludeDef.h>
-
-// #include "EventSystem/Events.h"
-
 #include <SDL2/SDL.h>
+#include <Utils/IncludeGL.h>
 
 namespace entry
 {
@@ -89,7 +85,7 @@ namespace entry
 
     static void initTranslateKey(uint16_t _sdl, Key::Enum _key)
     {
-        FTS_ASSERT_MSG(_sdl < sizeof(s_translateKey), "Out of bounds {}.", _sdl);
+        FTS_ASSERT_MSG(_sdl < sizeof(s_translateKey), "Out of bounds {}." /*, _sdl*/);
         s_translateKey[_sdl & 0xff] = (uint8_t)_key;
     }
 
@@ -133,7 +129,7 @@ namespace fts::win32
         mData.Height     = props.Height;
         mData.clearColor = props.clearColor;
 
-        // FTS_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+        FTS_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
         FTS_CORE_INFO("Platform SDL Window:");
         FTS_CORE_INFO("  Title: {0}", props.Title);
         FTS_CORE_INFO("  Size: ({0}, {1})", props.Width, props.Height);
@@ -154,8 +150,8 @@ namespace fts::win32
 
             if(!mSdlWindow)
             {
-                terminate();
-                throw std::exception("Failed to create SDL window.");
+                // std::terminate();
+                throw std::runtime_error("Failed to create SDL window.");
             }
         }
 
@@ -233,6 +229,14 @@ namespace fts::win32
     bool Window_windows::IsVSync() const
     {
         return mData.VSync;
+    }
+
+    MultiSampleLevel Window_windows::GetMSAA() const
+    {
+        /*int value = 0;
+        SDL_GL_GetAttribute(SDL_GL_MULTISAMPLESAMPLES, &value);
+        return static_cast<MultiSampleLevel>(value);*/
+        return static_cast<MultiSampleLevel>(mData.MSAA);
     }
 
     void Window_windows::SetTitle(const std::string& title)
@@ -316,7 +320,10 @@ namespace fts::win32
 
                         winData.Width  = width;
                         winData.Height = height;
-                        WindowResizeEvent ALT_event(width, height);
+                        WindowResizeEvent ALT_event;
+                        ALT_event.Width  = float(event.window.data1);
+                        ALT_event.Height = float(event.window.data2);
+
                         Event evtData(FTS_EVENT_WINDOW_RESIZE, ALT_event);
                         winData.EventCallback(evtData);
 

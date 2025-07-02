@@ -2,6 +2,7 @@
 #ifndef CORE_APPLICATION_H
 #define CORE_APPLICATION_H
 
+#include <Core/Assert.h>
 #include <Core/IWindow.h>
 #include <Core/Ini.h>
 #include <Core/Layer.h>
@@ -247,6 +248,7 @@ namespace fts
     {\
             return new x(heap, heapTemp, args);\
     }
-    //}
+
+} // namespace fts
 
 #endif

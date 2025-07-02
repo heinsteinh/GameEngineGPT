@@ -2,6 +2,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+#include <Renderer/RendererAPI.h>
 #include <functional>
 #include <glm/fwd.hpp>
 #include <glm/vec4.hpp>
@@ -22,6 +23,7 @@ namespace fts
         std::string Title;
         uint32_t Width;
         uint32_t Height;
+        MultiSampleLevel MSAA = MultiSampleLevel::X4;
         int Flags;
         bool VSync                    = true;
         glm::vec4 clearColor          = {0.0f, 0.0f, 0.0f, 1.0f};
@@ -30,11 +32,13 @@ namespace fts
         WindowCreateInfo(const std::string& title = "Fts Engine",
                          uint32_t width           = 1024, // 1024,
                          uint32_t height          = 768,  // 768, //840,
+                         MultiSampleLevel msaa    = MultiSampleLevel::X4,
                          bool vsync               = true,
                          int flags                = WindowFlags::NONE)
             : Title(title)
             , Width(width)
             , Height(height)
+            , MSAA(msaa)
             , Flags(flags)
             , VSync(vsync)
         {
@@ -59,6 +63,7 @@ namespace fts
         virtual uint32_t GetXpos() const                         = 0;
         virtual uint32_t GetYpos() const                         = 0;
         virtual glm::vec4 GetClearColor() const                  = 0;
+        virtual MultiSampleLevel GetMSAA() const                 = 0;
         virtual std::pair<int32_t, int32_t> GetWindowPos() const = 0;
 
         // Window attributes

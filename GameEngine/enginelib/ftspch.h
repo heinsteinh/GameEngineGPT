@@ -4,7 +4,7 @@
 #include <Config.h>
 #include <Core/Assert.h>
 #include <Core/Base.h>
-#include <Core/Init.h>
+#include <Core/Ini.h>
 #include <Core/KeyCodes.h>
 #include <Core/Log.h>
 #include <Core/Macro.h>
@@ -14,6 +14,7 @@
 #include <Events/Event.h>
 #include <Events/EventDef.h>
 #include <Utils/GLM_Header.h>
+#include <Utils/ResourcePath.h>
 #include <VersionEngine.h>
 #include <algorithm>
 #include <array>
