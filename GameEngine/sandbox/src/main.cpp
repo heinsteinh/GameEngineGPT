@@ -1,5 +1,8 @@
 #include <Core/EntryPoint.h>
+#include <SDL.h>
+#include <Utils/IncludeGL.h>
 #include <ftscore.h>
+#include <iostream>
 
 namespace example01
 {
@@ -29,7 +32,7 @@ namespace example01
         virtual void OnPreRender()
         {
 
-            // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
             // fts::RenderCommand::SetClearColor({ 0.32f, 0.3185f, 0.32f, 1.0f });
             // fts::RenderCommand::Clear();
             // fts::RenderCommand::SetDepthTest(true);
@@ -101,4 +104,36 @@ namespace example01
 
 } // namespace example01
 
-RegisterApplication(example01::SandboxApp);
+// RegisterApplication(example01::SandboxApp);
+
+int main(int argc, char* argv[])
+{
+    try
+    {
+
+        {
+            fts::Log::Init();
+
+            HZ_PROFILE_BEGIN_SESSION("Startup", "HazelProfile-Startup.json");
+            // auto app = fts::Application::CreateApplication({argc, argv});
+
+            auto app = new fts::Application({argc, argv});
+            HZ_PROFILE_END_SESSION();
+
+            HZ_PROFILE_BEGIN_SESSION("Runtime", "HazelProfile-Runtime.json");
+            app->Run();
+            HZ_PROFILE_END_SESSION();
+
+            HZ_PROFILE_BEGIN_SESSION("Shutdown", "HazelProfile-Shutdown.json");
+            delete app;
+            HZ_PROFILE_END_SESSION();
+        }
+        return EXIT_SUCCESS;
+    }
+    catch(std::runtime_error& e)
+    {
+        std::cerr << "Error in game: " << e.what() << std::endl;
+        system("pause");
+        return EXIT_FAILURE;
+    }
+}

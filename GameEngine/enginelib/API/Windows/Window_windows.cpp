@@ -462,7 +462,6 @@ namespace fts::win32
                 }
                 else
                 {
-
                     const SDL_KeyboardEvent& kev = event.key;
                     { // Experiments
 

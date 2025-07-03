@@ -5,6 +5,7 @@
 
 // extern fts::Application* fts::Application::CreateApplication(ApplicationCommandLineArgs args);
 
+/*
 int main(int argc, char* argv[])
 {
     fts::Log::Init();
@@ -21,6 +22,7 @@ int main(int argc, char* argv[])
     delete app;
     HZ_PROFILE_END_SESSION();
 }
+*/
 
 /*
 #include <Core/Application.h>
@@ -56,15 +58,15 @@ int main(int argc, char** argv)
          delete app;
          HZ_PROFILE_END_SESSION();
 
-        }
-        return EXIT_SUCCESS;
-    }
-    catch (std::runtime_error& e)
-    {
-        std::cerr << "Error in game: " << e.what() << std::endl;
-        system("pause");
-        return EXIT_FAILURE;
-    }
+     }
+     return EXIT_SUCCESS;
+ }
+ catch (std::runtime_error& e)
+ {
+     std::cerr << "Error in game: " << e.what() << std::endl;
+     system("pause");
+     return EXIT_FAILURE;
+ }
 }
 
 */

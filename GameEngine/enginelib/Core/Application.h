@@ -40,14 +40,6 @@ namespace fts
         OnDestroy
     };
 
-    enum class GameStatus
-    {
-        Stop,
-        Pause,
-        Step,
-        Playing
-    };
-
     class Application
     {
     public:
@@ -93,6 +85,12 @@ namespace fts
         // fts::Scene* GetSceneWorld() { FTS_ASSERT(mScene != nullptr);  return mScene.get(); }
 
         // void EachLayer(std::function<void(Ref<Layer>)> callback);
+
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* layer);
+        void PopLayer(Layer* layer);
+        void PopOverlay(Layer* overlay);
+        void DestroyLayer(Layer* layer);
 
     protected:
         virtual void Initialize() {};
@@ -199,13 +197,11 @@ namespace fts
         virtual void RenderEnd();
 
     private:
-        // std::shared_ptr<fts::job::ThreadPool>   mThreadPool;
         ApplicationCommandLineArgs m_CommandLineArgs;
 
         // fts::IRendererDevice* mRendererDevice;
 
         std::vector<std::shared_ptr<Layer>> m_LayerStack;
-        // std::shared_ptr<fts::Scene> mActiveScene;
 
         bool m_Running   = true;
         bool m_Minimized = false;
@@ -217,7 +213,6 @@ namespace fts
         Window* m_Window;
 
         ApplicationStatus mApplicationStatus = ApplicationStatus::Uninitialized;
-        GameStatus mGameStatus               = GameStatus::Stop;
 
     private:
         static Application* s_Instance;

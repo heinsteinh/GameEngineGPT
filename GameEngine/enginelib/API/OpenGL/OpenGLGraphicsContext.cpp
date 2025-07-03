@@ -232,79 +232,81 @@ namespace fts
         SDL_GL_SetSwapInterval(0);
     }
 
-    OpenGLFramebufferGC::OpenGLFramebufferGC(OpenGLFramebuffer* framebuffer)
-        : m_Framebuffer(framebuffer)
-    {
-    }
-
     /*
-    void OpenGLFramebufferGC::BeginFrame() {
 
-        Framebuffer::SetCurrentBoundFramebuffer(m_Framebuffer);
-
-        HZ_PROFILE_FUNCTION();
-        {
-            HZ_PROFILE_SCOPE("glBindFramebuffer");
-            glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer->GetRendererId());
-        }
-        {
-            HZ_PROFILE_SCOPE("glViewport");
-            glViewport(0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight());
-        }
-    }
+   OpenGLFramebufferGC::OpenGLFramebufferGC(OpenGLFramebuffer* framebuffer)
+       : m_Framebuffer(framebuffer)
+   {
+   }
 
 
-    void OpenGLFramebufferGC::EndFrame() {
-        Framebuffer::SetCurrentBoundFramebuffer(nullptr);
-        m_Framebuffer->Unbind();
-    }
+   void OpenGLFramebufferGC::BeginFrame() {
+
+       Framebuffer::SetCurrentBoundFramebuffer(m_Framebuffer);
+
+       HZ_PROFILE_FUNCTION();
+       {
+           HZ_PROFILE_SCOPE("glBindFramebuffer");
+           glBindFramebuffer(GL_FRAMEBUFFER, m_Framebuffer->GetRendererId());
+       }
+       {
+           HZ_PROFILE_SCOPE("glViewport");
+           glViewport(0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight());
+       }
+   }
 
 
-    void OpenGLFramebufferGC::SwapBuffers() {
-        HZ_PROFILE_FUNCTION();
-        {
-            HZ_PROFILE_SCOPE("glBlitFramebuffer");
-            static GLenum buffers[4] = {
-                GL_COLOR_ATTACHMENT0,
-                GL_COLOR_ATTACHMENT1,
-                GL_COLOR_ATTACHMENT2,
-                GL_COLOR_ATTACHMENT3,
-            };
+   void OpenGLFramebufferGC::EndFrame() {
+       Framebuffer::SetCurrentBoundFramebuffer(nullptr);
+       m_Framebuffer->Unbind();
+   }
 
-            if (m_Framebuffer->GetResolveRendererId()) {
 
-                GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_Framebuffer->GetRendererId()));
-                GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_Framebuffer->GetResolveRendererId()));
+   void OpenGLFramebufferGC::SwapBuffers() {
+       HZ_PROFILE_FUNCTION();
+       {
+           HZ_PROFILE_SCOPE("glBlitFramebuffer");
+           static GLenum buffers[4] = {
+               GL_COLOR_ATTACHMENT0,
+               GL_COLOR_ATTACHMENT1,
+               GL_COLOR_ATTACHMENT2,
+               GL_COLOR_ATTACHMENT3,
+           };
 
-                for (uint32_t i = 0; i < m_Framebuffer->GetNumColorAttachments(); ++i) {
-                    GLCall(glReadBuffer(buffers[i]));
-                    GLCall(glDrawBuffer(buffers[i]));
+           if (m_Framebuffer->GetResolveRendererId()) {
 
-                    GLCall(glBlitFramebuffer(
-                        0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
-                        0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
-                        GL_COLOR_BUFFER_BIT,
-                        GL_NEAREST
-                        ));
-                }
+               GLCall(glBindFramebuffer(GL_READ_FRAMEBUFFER, m_Framebuffer->GetRendererId()));
+               GLCall(glBindFramebuffer(GL_DRAW_FRAMEBUFFER, m_Framebuffer->GetResolveRendererId()));
 
-                if (m_Framebuffer->HasDepthAttachment()) {
-                    GLCall(glBlitFramebuffer(
-                        0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
-                        0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
-                        GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT,
-                        GL_NEAREST
-                        ));
+               for (uint32_t i = 0; i < m_Framebuffer->GetNumColorAttachments(); ++i) {
+                   GLCall(glReadBuffer(buffers[i]));
+                   GLCall(glDrawBuffer(buffers[i]));
 
-                }
-            }
-        }
-        {
-            HZ_PROFILE_SCOPE("glBindFramebuffer(0)");
+                   GLCall(glBlitFramebuffer(
+                       0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
+                       0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
+                       GL_COLOR_BUFFER_BIT,
+                       GL_NEAREST
+                       ));
+               }
 
-            Framebuffer::SetCurrentBoundFramebuffer(nullptr);
-            GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
-        }
-    }
+               if (m_Framebuffer->HasDepthAttachment()) {
+                   GLCall(glBlitFramebuffer(
+                       0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
+                       0, 0, m_Framebuffer->GetWidth(), m_Framebuffer->GetHeight(),
+                       GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT,
+                       GL_NEAREST
+                       ));
+
+               }
+           }
+       }
+       {
+           HZ_PROFILE_SCOPE("glBindFramebuffer(0)");
+
+           Framebuffer::SetCurrentBoundFramebuffer(nullptr);
+           GLCall(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+       }
+   }
 */
 } // namespace fts

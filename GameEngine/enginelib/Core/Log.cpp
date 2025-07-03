@@ -3,7 +3,6 @@
 #include <Utils/IncludeDef.h>
 #include <Utils/IncludeGL.h>
 #include <ftspch.h>
-#include <iostream>
 #include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 

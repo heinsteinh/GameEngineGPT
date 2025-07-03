@@ -58,6 +58,7 @@ namespace fts
         static void SetCulling(bool value);
         static void SetPointSize(float size);
         static void SetLineWidth(float width);
+        static void SetViewport(uint32_t x, uint32_t y, uint32_t width, uint32_t height);
 
         static void EnableBlend(bool enable);
 

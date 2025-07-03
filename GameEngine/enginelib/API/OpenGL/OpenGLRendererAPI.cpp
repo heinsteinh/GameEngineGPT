@@ -224,4 +224,129 @@ namespace fts
             glFrontFace(GL_CW);
     }
 
+    void OpenGLRendererAPI::DispatchCompute(uint32_t groupx, uint32_t groupy, uint32_t groupz)
+    {
+        glDispatchCompute(groupx, groupy, groupz);
+        glMemoryBarrier(GL_ALL_BARRIER_BITS);
+    }
+
+    void OpenGLRendererAPI::SetDepthTest(bool value)
+    {
+        if(value)
+            glEnable(GL_DEPTH_TEST);
+        else
+            glDisable(GL_DEPTH_TEST);
+    }
+
+    void OpenGLRendererAPI::SetDepthWriteMode(bool value)
+    {
+        glDepthMask(value ? GL_TRUE : GL_FALSE);
+    }
+
+    void OpenGLRendererAPI::SetDepthTestFunction(DepthStencilMode criterion)
+    {
+        glDepthFunc((GLenum)criterion);
+    }
+
+    void OpenGLRendererAPI::SetStencilTest(bool value)
+    {
+        if(value)
+            glEnable(GL_STENCIL_TEST);
+        else
+            glDisable(GL_STENCIL_TEST);
+    }
+
+    void OpenGLRendererAPI::SetStencilTestFunction(DepthStencilMode criterion, int8_t refValue, uint8_t mask)
+    {
+        glStencilFunc((GLenum)criterion, refValue, mask);
+    }
+
+    void OpenGLRendererAPI::SetStencilWriteMask(uint32_t mask)
+    {
+        glStencilMask(mask);
+    }
+
+    void OpenGLRendererAPI::SetStencilAction(DepthStencilAction onStencilFail, DepthStencilAction onDepthFail, DepthStencilAction onPass)
+    {
+        glStencilOp((GLenum)onStencilFail, (GLenum)onDepthFail, (GLenum)onPass);
+    }
+
+    void OpenGLRendererAPI::SetCulling(bool value)
+    {
+        if(value)
+        {
+            glEnable(GL_CULL_FACE);
+            glCullFace(GL_BACK);
+        }
+        else
+        {
+            glDisable(GL_CULL_FACE);
+        }
+    }
+
+    void OpenGLRendererAPI::EnableBlend(bool enable)
+    {
+        if(enable)
+            glEnable(GL_BLEND);
+        else
+            glDisable(GL_BLEND);
+    }
+
+    void OpenGLRendererAPI::SetBlendMode(BlendingMode sourceMode, BlendingMode destMode)
+    {
+        glBlendFunc((GLenum)sourceMode, (GLenum)destMode);
+    }
+
+    void OpenGLRendererAPI::SetPointSize(float size)
+    {
+        glPointSize(size);
+    }
+
+    void OpenGLRendererAPI::SetLineWidth(float width)
+    {
+        glLineWidth(width);
+    }
+
+    /*
+        std::shared_ptr<Framebuffer> OpenGLRendererAPI::CreateFramebuffer(const FramebufferSettings& settings) {
+            return std::make_shared<OpenGLFramebuffer>(settings);
+        }
+
+
+        std::shared_ptr<Texture> OpenGLRendererAPI::CreateTexture(const TextureSettings& settings)
+        {
+            switch (settings.textureType) {
+            case TextureType::Texture2D: return std::make_unique<OpenGLTexture2D>(settings);
+            case TextureType::Texture2DArray: return std::make_unique<OpenGLTexture2DArray>(settings);
+            case TextureType::TextureCube: return std::make_unique<OpenGLTextureCube>(settings);
+            case TextureType::TextureCubeArray: return std::make_unique<OpenGLTextureCubeArray>(settings);
+            }
+            FTS_ASSERT_MSG(false, "TextureType not supported!");
+            return nullptr;
+        }
+
+
+        std::shared_ptr<Shader> OpenGLRendererAPI::CreateShader() {
+            return std::make_shared<OpenGLShader>();
+        }
+        std::shared_ptr<Shader> OpenGLRendererAPI::CreateShader(const std::string& filepath) {
+            return std::make_shared<OpenGLShader>(filepath);
+        }
+
+        std::shared_ptr<Shader> OpenGLRendererAPI::CreateShader(const std::string& name,
+                                                                const std::string& vertexSrc, const std::string& fragmentSrc) {
+            return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc);
+        }
+
+        std::shared_ptr<Shader> OpenGLRendererAPI::CreateShader(const std::string& name,
+                                                                const std::string& vertexSrc, const std::string& fragmentSrc, const std::string& geoSrc) {
+            return std::make_shared<OpenGLShader>(name, vertexSrc, fragmentSrc, geoSrc);
+        }
+
+        std::shared_ptr<Shader> OpenGLRendererAPI::CreateShaderCompile(const std::string& name,
+                                                                       const char* vs_source, const char* fs_source, const char* gs_source) {
+            return std::make_shared<OpenGLShader>(name, vs_source, fs_source, gs_source);
+        }
+    */
+
 } // namespace fts

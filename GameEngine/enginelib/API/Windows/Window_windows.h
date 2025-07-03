@@ -62,8 +62,8 @@ namespace fts::win32
         virtual void EndFrame() override;
 
         std::string GetTitle() const override;
-        void SetIcon(const std::string& iconFilepath) override;
-        void TakeScreenshot() const override;
+        // void SetIcon(const std::string& iconFilepath) override;
+        // void TakeScreenshot() const override;
 
     private:
         void Init(const WindowCreateInfo& props);

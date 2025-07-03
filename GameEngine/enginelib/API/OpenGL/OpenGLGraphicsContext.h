@@ -41,6 +41,7 @@ namespace fts
         friend class Framebuffer;
     };
 
+    /*
     class OpenGLFramebuffer;
     class OpenGLFramebufferGC : public fts::GraphicsContext
     {
@@ -68,6 +69,7 @@ namespace fts
     private:
         OpenGLFramebuffer* m_Framebuffer;
     };
+*/
 } // namespace fts
 
 #endif // OPENGLGRAPHICSCONTEXT_H

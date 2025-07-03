@@ -13,6 +13,8 @@
 #include <libproc.h>
 #endif
 
+#include <SDL2/SDL.h>
+
 namespace fts
 {
     const std::string DEBUG_LOG_FILE   = "EngineDebugOutput.log";
@@ -29,13 +31,13 @@ namespace fts
         mAppSpecification.CommandLineArgs  = m_CommandLineArgs;
         mAppSpecification.Name             = title;
 
-        const std::string debug_path = (GetAppDirectory() / DEBUG_LOG_FILE).generic_string();
-        fts::Log::Init(debug_path);
+        // const std::string debug_path = (GetAppDirectory() / DEBUG_LOG_FILE).generic_string();
+        // fts::Log::Init(debug_path);
 
         FTS_ASSERT_MSG(!s_Instance, "Application already exists!");
         s_Instance = this;
 
-        FTS_CORE_INFO("Debug info is output to: {}", debug_path);
+        // FTS_CORE_INFO("Debug info is output to: {}", debug_path);
 
         // fts::Random::Init();
         // job::JobSystem::Initialize();
@@ -135,8 +137,8 @@ namespace fts
         m_Window = fts::Window::Create(props);
         m_Window->SetEventCallback(BIND_EVENT_FN(Application::HandleEvent));
 
-        auto iconPath = fts::getPathRelativeRoot("Icons/light.png");
-        m_Window->SetIcon(iconPath);
+        // auto iconPath = fts::getPathRelativeRoot("Icons/light.png");
+        // m_Window->SetIcon(iconPath);
     }
 
     std::filesystem::path Application::GetAppDirectory()
@@ -156,7 +158,7 @@ namespace fts
             std::uint32_t size = proc_pidpath(pid, buffer, sizeof(buffer));
             if(size <= 0)
             {
-                FTS_CORE_ERROR("GetExecutablePath", "readlink(\"/proc/self/exe\", ...)  failed");
+                FTS_CORE_ERROR("{} readlink(\"/proc/self/exe\", ...)  failed", "GetExecutablePath");
             }
 
 #endif
@@ -232,4 +234,216 @@ namespace fts
             layer->mScene = scene;
         }
     } */
+
+    void Application::Run()
+    {
+        HZ_PROFILE_FUNCTION();
+
+        mApplicationStatus = ApplicationStatus::Uninitialized;
+
+        // Initializes the client application, handles registering all the application layers
+        Initialize();
+
+        // Initialize the timers to default
+        float fixedStep = 0.0f;
+        float frameStep = 0.0f;
+
+        // Perform initializations for all application layers
+        for(auto& layer : m_LayerStack)
+        {
+            layer->OnAttach();
+        }
+
+        mApplicationStatus = ApplicationStatus::Initialized;
+
+        while(m_Running)
+        {
+            HZ_PROFILE_SCOPE("RunLoop");
+
+            /* Process input events */
+            {
+                HZ_PROFILE_SCOPE("sdlPollEvents");
+                InputCore::Update();
+
+                // Poll for window events
+                m_Window->ProcessEvents();
+
+                mAppListener.HandleAllEvents();
+            }
+
+            float time        = static_cast<float>(SDL_GetTicks()); // Time::GetTime();
+            Timestep timestep = time - m_LastFrameTime;
+            m_LastFrameTime   = time;
+
+            if(!m_Minimized)
+            {
+
+                {
+                    HZ_PROFILE_SCOPE("LayerStack OnUpdate");
+                    // Update all the application layers (variable rate updates, run as fast as possible)
+                    for(auto& layer : m_LayerStack)
+                    {
+                        if(layer->IsEnabled)
+                            layer->OnUpdate(timestep);
+                    }
+                }
+
+                {
+
+                    HZ_PROFILE_SCOPE("LayerStack Onrenderer");
+                    // Perform the render step if enough time has passed
+                    // if (frameStep > Timing::FrameTimeStep)
+                    {
+                        RenderBegin();
+                        {
+
+                            // Pre-render for all layers
+                            for(auto& layer : m_LayerStack)
+                            {
+                                if(layer->IsEnabled)
+                                    layer->OnPreRender();
+                            }
+
+                            // Render all the application layers
+                            for(auto& layer : m_LayerStack)
+                            {
+                                if(layer->IsEnabled)
+                                    layer->OnRenderer(timestep);
+                            }
+
+                            // Post-render for all layers
+                            for(auto& layer : m_LayerStack)
+                            {
+                                if(layer->IsEnabled)
+                                    layer->OnPostRender();
+                            }
+
+#ifdef FTS_IMGUI
+
+                            m_ImGuiLayer->Begin();
+                            {
+                                HZ_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+                                for(auto& layer : m_LayerStack)
+                                    if(layer->IsEnabled)
+                                        layer->OnImGuiRender();
+                            }
+                            m_ImGuiLayer->End();
+#endif
+                        }
+                        RenderEnd();
+                    }
+                }
+            }
+        }
+
+        // Perform the shutdown behaviors for all application layers
+        for(auto& layer : m_LayerStack)
+        {
+            layer->OnDetach();
+        }
+
+        // Shuts down the client application, allowing client apps to provide shutdown behavior
+        Shutdown();
+    }
+
+    void Application::RenderBegin()
+    {
+        m_Window->BeginFrame();
+    }
+
+    void Application::RenderEnd()
+    {
+        m_Window->EndFrame();
+    }
+
+    void Application::Render()
+    {
+
+        {
+            HZ_PROFILE_SCOPE("LayerStack OnRenderer");
+
+            for(auto& layer : m_LayerStack)
+                layer->OnRenderer(m_DeltaTime);
+        }
+
+#ifdef FTS_IMGUI
+        m_ImGuiLayer->Begin();
+        {
+            HZ_PROFILE_SCOPE("LayerStack OnImGuiRender");
+
+            for(auto& layer : m_LayerStack)
+                layer->OnImGuiRender();
+        }
+        m_ImGuiLayer->End();
+#endif
+    }
+
+    void Application::Close()
+    {
+        m_Running = false;
+    }
+
+    void Application::HandleEvent(const Event& evt)
+    {
+
+        for(auto& layer : m_LayerStack)
+            layer->OnEvent(evt);
+    }
+
+    void Application::OnKeyPressedEvent(const Event& evt)
+    {
+
+        const auto& key = evt.get<KeyPressedEvent>();
+        if(key.Repeat > 0)
+        {
+            return;
+        }
+        switch(key.Key)
+        {
+        case fts::Key::KeyCode::KEY_F2:
+        {
+            int i = 0;
+        }
+        }
+
+        if(key.Key == fts::Key::KeyCode::KEY_F2)
+        {
+            // m_Window->TakeScreenshot();
+        }
+    }
+
+    void Application::OnWindowClose(const Event& evt)
+    {
+        Close();
+    }
+
+    void Application::OnWindowResize(const Event& evt)
+    {
+        auto data = evt.get<WindowResizeEvent>();
+
+        if(data.Width == 0 || data.Height == 0)
+        {
+            m_Minimized = true;
+        }
+
+        m_Minimized = false;
+
+        for(auto& layer : m_LayerStack)
+            if(layer->IsEnabled)
+                layer->OnWindowResize(data.Width, data.Height);
+
+        Renderer::OnWindowResize(data.Width, data.Height);
+    }
+
+    void Application::OnWindowMinimized(const Event& evt)
+    {
+        m_Minimized = true;
+    }
+
+    void Application::OnWindowRestored(const Event& evt)
+    {
+        m_Minimized = false;
+    }
+
 } // namespace fts

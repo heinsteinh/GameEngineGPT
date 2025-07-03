@@ -11,7 +11,7 @@ add_executable(
   ${GAME_EXAMPLE_NAME} src/main.cpp src/SandboxLayer.cpp src/SandboxLayer.h
                        src/SandboxApp.cpp src/SandboxApp.h)
 
-target_link_libraries(${GAME_EXAMPLE_NAME} EngineLib)
+target_link_libraries(${GAME_EXAMPLE_NAME} EngineLib spdlog::spdlog)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
              PROPERTY VS_STARTUP_PROJECT ${GAME_EXAMPLE_NAME})

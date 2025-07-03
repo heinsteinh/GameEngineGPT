@@ -8,12 +8,15 @@
 namespace fts
 {
 
+    class Application;
     class Event;
     class Layer
     {
+        friend class Application;
+
     public:
         Layer(const std::string& name = "Layer");
-        virtual ~Layer() = default;
+        virtual ~Layer();
 
         virtual void OnAttach()
         {
@@ -24,10 +27,19 @@ namespace fts
         virtual void OnUpdate(Timestep ts)
         {
         }
+
+        virtual void OnPreRender() {};
+        virtual void OnRenderer(const Timestep& ts) {};
+        virtual void OnPostRender() {};
+
         virtual void OnImGuiRender()
         {
         }
-        virtual void OnEvent(Event& event)
+
+        virtual void OnEvent(const Event& event)
+        {
+        }
+        virtual void OnWindowResize(uint32_t width, uint32_t height)
         {
         }
 
@@ -38,6 +50,8 @@ namespace fts
 
     protected:
         std::string m_DebugName;
+        fts::Application& mApp;
+        bool IsEnabled;
     };
 
 } // namespace fts

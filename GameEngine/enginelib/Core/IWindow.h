@@ -28,7 +28,7 @@ namespace fts
         bool VSync                    = true;
         glm::vec4 clearColor          = {0.0f, 0.0f, 0.0f, 1.0f};
         uint32_t Opengl_Major_Version = 4;
-        uint32_t Opengl_Minor_Version = 6;
+        uint32_t Opengl_Minor_Version = 0;
         WindowCreateInfo(const std::string& title = "Fts Engine",
                          uint32_t width           = 1024, // 1024,
                          uint32_t height          = 768,  // 768, //840,
@@ -80,10 +80,10 @@ namespace fts
         virtual void BeginFrame() = 0;
         virtual void EndFrame()   = 0;
 
-        virtual std::string GetTitle() const                  = 0;
-        virtual void SetTitle(const std::string& title)       = 0;
-        virtual void SetIcon(const std::string& iconFilepath) = 0;
-        virtual void TakeScreenshot() const                   = 0;
+        virtual std::string GetTitle() const            = 0;
+        virtual void SetTitle(const std::string& title) = 0;
+        // virtual void SetIcon(const std::string& iconFilepath) = 0;
+        // virtual void TakeScreenshot() const                   = 0;
     };
 } // namespace fts
 
