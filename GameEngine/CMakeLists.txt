@@ -63,7 +63,7 @@ configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/PathEngine.h.in"
                ${INCLUDE_OUTPUT_PATH}/PathEngine.h @ONLY)
 
 # configuration
-configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/config.h.in"
+configure_file("${CMAKE_SOURCE_DIR}/cmake/inConfig/Config.h.in"
                ${INCLUDE_OUTPUT_PATH}/Config.h)
 
 message(STATUS "C Compiler: ${CMAKE_C_COMPILER_ID}")
