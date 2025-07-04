@@ -1,7 +1,7 @@
 #include "Gizmos.h"
 
-#include <Utils/GLM_Header.h>
-#include <Utils/IncludeGL.h>
+#include "GLM_Header.h"
+#include "IncludeGL.h"
 
 namespace fts
 {

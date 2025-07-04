@@ -1,4 +1,4 @@
-set(AppName "GameApp")
+set(AppName "Game")
 
 project(${AppName} C CXX)
 

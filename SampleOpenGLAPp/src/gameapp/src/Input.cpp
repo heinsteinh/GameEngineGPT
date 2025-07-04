@@ -1,6 +1,7 @@
 #include "Input.h"
 
-#include <GLFW/glfw3.h>
+#include "GLM_Header.h"
+#include "IncludeGL.h"
 
 namespace aie
 {
