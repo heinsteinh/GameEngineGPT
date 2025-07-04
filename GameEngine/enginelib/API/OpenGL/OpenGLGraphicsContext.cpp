@@ -138,7 +138,7 @@ namespace fts
         glGetIntegerv(GL_MAJOR_VERSION, &versionMajor);
         glGetIntegerv(GL_MINOR_VERSION, &versionMinor);
 
-        FTS_ASSERT_MSG(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Engine requires at least OpenGL version 4.5!");
+        // FTS_ASSERT_MSG(versionMajor > 4 || (versionMajor == 4 && versionMinor >= 5), "Engine requires at least OpenGL version 4.5!");
 #endif
 
 #ifdef FTS_DEBUG

@@ -46,5 +46,4 @@ build/*
 Host/*
 GameEngine/.DS_Store
 GameEngine/*/.DS_Store
-GameEngine/sandbox/build/Qt_6_9_0_for_macOS-Debug/CMakeCache.txt.prev
 GameEngine/CMakeLists.txt.user
