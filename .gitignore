@@ -47,3 +47,4 @@ Host/*
 GameEngine/.DS_Store
 GameEngine/*/.DS_Store
 GameEngine/CMakeLists.txt.user
+SampleOpenGLAPp/src/build/*
